@@ -1,28 +1,10 @@
 import React from "react";
 
 export default class FoodBox extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {};
-    this.state.howMany = 1;
-    this.state.today = 0;
     this.state.selected = false;
-    this.addFood = this.addFood.bind(this);
-    this.handleHowMany = this.handleHowMany.bind(this);
-  }
-
-  addFood(event) {
-    this.setState({
-      ...this.state,
-      today: this.state.today + this.state.howMany
-    });
-    console.log("Here's how many foods you ate:");
-    console.log(this.state.today);
-  }
-
-  handleHowMany(event) {
-    console.log(event.target.value);
-    this.setState({ ...this.state, howMany: event.target.valueAsNumber });
   }
 
   render() {
@@ -50,11 +32,18 @@ export default class FoodBox extends React.Component {
               className="input"
               type="number"
               defaultValue="1"
-              onChange={this.handleHowMany}
+              onChange={event =>
+                this.props.onNumChange(event, this.props.food.name)
+              }
             />
           </div>
           <div className="control">
-            <button className="button btn btn-primary" onClick={this.addFood}>
+            <button
+              className="button btn btn-primary"
+              onClick={event =>
+                this.props.onPlusClick(event, this.props.food.name)
+              }
+            >
               +
             </button>
           </div>
